@@ -9,24 +9,19 @@ export const toyService = {
     save,
     getEmptyToy,
     getDefaultFilter,
-    getTotalCount,
-    getDoneCount
 }
 
 function query(filterBy = {}) {
     // console.log('query filterBy', filterBy)
     return storageService.query(STORAGE_KEY)
         .then(toys => {
-            if (filterBy.createdAt) {
-                toys = toys.filter(toy => toy.createdAt < filterBy.createdAt)
-            }
             if (filterBy.txt) {
                 const regExp = new RegExp(filterBy.txt, 'i')
-                toys = toys.filter(toy => regExp.test(toy.txt))
+                toys = toys.filter(toy => regExp.test(toy.name))
             }
-            if (filterBy.isDone !== undefined) {
+            if (filterBy.inStock !== undefined) {
                 console.log('11', 11)
-                toys = toys.filter(toy => toy.isDone === filterBy.isDone)
+                toys = toys.filter(toy => toy.inStock === filterBy.inStock)
             }
             return toys
         })
@@ -47,27 +42,18 @@ function save(toy) {
 
 function getEmptyToy() {
     return {
-        txt: '',
-        isDone: false
+        name: '',
+        price: '',
+        labels: [],
+        inStock: true
     }
-}
-
-function getTotalCount() {
-    return query()
-        .then(toys => toys.length)
-}
-
-function getDoneCount() {
-    return query({ isDone: true })
-        .then(toys => toys.length)
 }
 
 
 function getDefaultFilter() {
     return {
         txt: '',
-        isDone: undefined,
-        createdAt: Date.now()
+        inStock: undefined
     }
 }
 
@@ -77,11 +63,38 @@ function _createToys() {
     let toys = JSON.parse(localStorage.getItem(STORAGE_KEY))
     if (!toys || !toys.length) {
         toys = [
-            { _id: 1, txt: "Buy groceries", isDone: false, createdAt: getRandomDate(new Date(2022, 0, 1), new Date()) },
-            { _id: 2, txt: "Finish project proposal", isDone: false, createdAt: getRandomDate(new Date(2022, 0, 1), new Date()) },
-            { _id: 3, txt: "Call mom", isDone: true, createdAt: getRandomDate(new Date(2022, 0, 1), new Date()) },
-            { _id: 4, txt: "Go for a run", isDone: false, createdAt: getRandomDate(new Date(2022, 0, 1), new Date()) },
-            { _id: 5, txt: "Read book chapter", isDone: true, createdAt: getRandomDate(new Date(2022, 0, 1), new Date()) }
+            {
+                _id: 't101',
+                name: 'Talking Doll',
+                price: 123,
+                labels: ['Doll', 'Battery Powered', 'Baby'],
+                createdAt: 1631031801011,
+                inStock: true,
+            },
+            {
+                _id: 't102',
+                name: 'Remote Control Car',
+                price: 79,
+                labels: ['Car', 'Remote Control', 'Toy'],
+                createdAt: 1631031801022,
+                inStock: false,
+            },
+            {
+                _id: 't103',
+                name: 'Building Blocks',
+                price: 45,
+                labels: ['Building Blocks', 'Educational', 'Toy'],
+                createdAt: 1631031801033,
+                inStock: true,
+            },
+            {
+                _id: 't104',
+                name: 'Teddy Bear',
+                price: 55,
+                labels: ['Stuffed Animal', 'Cuddly', 'Toy'],
+                createdAt: 1631031801044,
+                inStock: true,
+            }
         ]
     }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
@@ -89,14 +102,6 @@ function _createToys() {
 
 // const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered']
 
-const toy = {
-    _id: 't101',
-    name: 'Talking Doll',
-    price: 123,
-    labels: ['Doll', 'Battery Powered', 'Baby'],
-    createdAt: 1631031801011,
-    inStock: true,
-}
 
 function getRandomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).valueOf()

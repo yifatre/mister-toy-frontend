@@ -1,7 +1,8 @@
+import { combineReducers, compose, createStore } from "redux"
 import { toyReducer } from "./reducers/toy.reducer.js"
 import { userReducer } from "./reducers/user.reducer.js"
 
-const { createStore, compose, combineReducers } = Redux
+// const { createStore, compose, combineReducers } = Redux
 
 const rootReducer = combineReducers({
     toyModule: toyReducer,
