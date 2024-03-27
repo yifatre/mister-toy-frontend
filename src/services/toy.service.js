@@ -1,4 +1,5 @@
 import { storageService } from "./async-storage.service.js"
+import { httpService } from "./http.service.js"
 
 const STORAGE_KEY = 'toyDB'
 
@@ -13,31 +14,54 @@ export const toyService = {
 
 function query(filterBy = {}) {
     // console.log('query filterBy', filterBy)
-    return storageService.query(STORAGE_KEY)
-        .then(toys => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                toys = toys.filter(toy => regExp.test(toy.name))
-            }
-            if (filterBy.inStock !== undefined) {
-                console.log('11', 11)
-                toys = toys.filter(toy => toy.inStock === filterBy.inStock)
-            }
-            return toys
-        })
+
+    //* Server
+    return httpService.get('toy', { params: { filterBy } })
+
+    //*LOCAL STORAGE
+    // return storageService.query(STORAGE_KEY)
+    //     .then(toys => {
+    //         if (filterBy.txt) {
+    //             const regExp = new RegExp(filterBy.txt, 'i')
+    //             toys = toys.filter(toy => regExp.test(toy.name))
+    //         }
+    //         if (filterBy.inStock !== undefined) {
+    //             console.log('11', 11)
+    //             toys = toys.filter(toy => toy.inStock === filterBy.inStock)
+    //         }
+    //         return toys
+    //     })
+}
+
+function getLabels() {
+    return [...labels]
 }
 
 function getById(toyId) {
-    return storageService.get(STORAGE_KEY, toyId)
+
+    return httpService.get(`toy/${toyId}`)
+
+    // return storageService.get(STORAGE_KEY, toyId)
 }
 
 function remove(toyId) {
-    return storageService.remove(STORAGE_KEY, toyId)
+
+    return httpService.delete(`toy/${toyId}`)
+
+
+    // return storageService.remove(STORAGE_KEY, toyId)
 }
 
 function save(toy) {
-    if (toy._id) return storageService.put(STORAGE_KEY, toy)
-    return storageService.post(STORAGE_KEY, toy)
+
+    if (toy._id) {
+        return httpService.put(`toy/${toy._id}`, toy)
+    } else {
+        return httpService.post('toy', toy)
+    }
+
+    // if (toy._id) return storageService.put(STORAGE_KEY, toy)
+    // return storageService.post(STORAGE_KEY, toy)
 }
 
 function getEmptyToy() {
@@ -58,7 +82,7 @@ function getDefaultFilter() {
 }
 
 // const toy = { _id, txt, isDone, createdAt }
-_createToys()
+// _createToys()
 function _createToys() {
     let toys = JSON.parse(localStorage.getItem(STORAGE_KEY))
     if (!toys || !toys.length) {
@@ -100,7 +124,7 @@ function _createToys() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
 }
 
-// const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered']
+const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered']
 
 
 function getRandomDate(start, end) {
