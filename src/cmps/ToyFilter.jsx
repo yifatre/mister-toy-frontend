@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { utilService } from "../services/util.service"
+import { MultipleSelect } from "./MultiSelect"
+import { toyService } from "../services/toy.service"
 
 export function ToyFilter({ filterBy, onSetFilter }) {
 
@@ -13,7 +15,8 @@ export function ToyFilter({ filterBy, onSetFilter }) {
     }, [filterByToEdit])
 
     function handleChange({ target }) {
-        const { value, type, name: field } = target
+        let { value, name: field } = target
+        if (field === 'labels') value = typeof value === 'string' ? value.split(',') : value
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
     }
 
@@ -29,6 +32,7 @@ export function ToyFilter({ filterBy, onSetFilter }) {
             <button onClick={(ev) => onSetInStockFilter(ev, true)}>In stock</button>
             <button onClick={(ev) => onSetInStockFilter(ev, false)}>Out of stock</button>
 
+            Categories: <MultipleSelect labelsList={toyService.getLabels()} handleChange={handleChange} selectedLabels={filterByToEdit.labels} />
         </form>
     </section >
 }

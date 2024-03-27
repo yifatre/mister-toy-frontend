@@ -2,6 +2,7 @@ import { storageService } from "./async-storage.service.js"
 import { httpService } from "./http.service.js"
 
 const STORAGE_KEY = 'toyDB'
+const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered', 'Educational']
 
 export const toyService = {
     query,
@@ -10,6 +11,7 @@ export const toyService = {
     save,
     getEmptyToy,
     getDefaultFilter,
+    getLabels
 }
 
 function query(filterBy = {}) {
@@ -77,7 +79,8 @@ function getEmptyToy() {
 function getDefaultFilter() {
     return {
         txt: '',
-        inStock: undefined
+        inStock: undefined,
+        labels: []
     }
 }
 
@@ -124,7 +127,6 @@ function _createToys() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(toys))
 }
 
-const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered']
 
 
 function getRandomDate(start, end) {
