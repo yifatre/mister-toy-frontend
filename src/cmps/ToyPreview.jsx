@@ -6,7 +6,7 @@ export function ToyPreview({ toy }) {
     return <>
         <img src={bear} alt="" />
         <h3>{toy.name}</h3>
-        <span>{toy.price}</span>
+        <span>Price: ${toy.price}</span>
         <button>Add to cart</button>
     </>
 

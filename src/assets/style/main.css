@@ -1,4 +1,12 @@
-@import url(setup/base.css);
-@import url(setup/helpers.css);
+@import url(setup/vars.css);
+@import url(setup/typography.css);
+
+@import url(basics/base.css);
+@import url(basics/helpers.css);
+@import url(basics/layout.css);
+
+@import url(cmps/app-header.css);
 @import url(cmps/toy-list.css);
 @import url(cmps/toy-preview.css);
+
+@import url(setup/mq.css);

@@ -1,11 +1,15 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
+import logo from "../assets/img/logo.png"
+
 
 export function AppHeader() {
 
     return <header className="app-header">
-        <h1>Toys</h1>
-        <nav>
-            <NavLink to="/toy">Toys</NavLink>
-        </nav>
+        <div className='flex'>
+            <Link to="/"><img className='logo' src={logo} alt="" /></Link>
+            <nav>
+                <NavLink to="/toy">Toys</NavLink>
+            </nav>
+        </div>
     </header>
 }
