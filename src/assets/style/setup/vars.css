@@ -1,4 +1,12 @@
 :root{
+
+    --primary: #F6D043;
+    --primary-1: #ebc643;
+
+    --secondary: #F48934;
+
     --off-black: #2e2e2e;
+    
     --off-white: #fafafa;
+    --off-white-1: #F4F6F5;
 }

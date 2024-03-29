@@ -1,6 +1,6 @@
 .toy {
     position: relative;
-    background-color: #fff;
+    background-color: var(--off-white-1);
     border-radius: 10px;
     padding: 1rem;
 }
@@ -9,16 +9,39 @@
     height: 4rem;
 }
 
-.toy .del-btn {
-    background: white;
+.toy :is(.del-btn, .edit-btn) {
+    /* background: white; */
+    background-color: var(--off-white-1);
     /* border: 1px solid var(--off-black); */
     border: none;
-    border-radius: 50%;
     position: absolute;
-    width: 1.5rem;
     height: 1.5rem;
-    right: -0.5rem;
     top: -0.5rem;
     padding: 0;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.toy :is(.del-btn, .edit-btn):hover {
+    background-color: var(--off-white);
+}
+
+.toy .del-btn {
+    border-radius: 50%;
+    width: 1.5rem;
+    right: -0.5rem;
+}
+
+.toy .edit-btn {
+    width: 3.5rem;
+    right: 1.5rem;
+}
+
+.toy button.add-to-cart {
+    background-color: var(--primary);
+    border: none;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.toy button.add-to-cart:hover {
+    background-color: var(--primary-1);
 }

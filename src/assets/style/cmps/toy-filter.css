@@ -1,0 +1,30 @@
+.toy-filter{
+    gap: 1rem;
+    position: relative;
+    margin: 1rem 0.3rem;
+}
+
+.toy-filter svg{
+    position: absolute;
+    top: 0.1rem;
+    left: 0.1rem;
+    fill: var(--off-black);
+}
+
+.toy-filter input:first-of-type{
+    border-radius: 6px;
+    border: 1px solid var(--off-black);
+    padding: 0.2rem 0.4rem 0.2rem 1.7rem;
+    font-size: 0.9rem;
+}
+
+
+.stock-filter button{
+    background: none;
+    border: none;
+    margin-inline-start: 0.3rem;
+}
+
+.stock-filter button.selected{
+    border-bottom: 1px solid var(--off-black);
+}

@@ -1,0 +1,14 @@
+.toy-index{
+    grid-template-areas: 
+    "filter toys"
+    ;
+    grid-template-columns: max-content 1fr;
+}
+
+.toy-filter{
+    grid-area: filter;
+}
+
+.toy-list{
+    grid-area: toys;
+}

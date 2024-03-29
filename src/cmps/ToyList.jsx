@@ -7,7 +7,7 @@ export function ToyList({ toys, onRemoveToy }) {
         {toys.map(toy => (
             <article className="toy grid" key={toy._id}>
                 <button className="del-btn" onClick={() => onRemoveToy(toy._id)}>✕</button>
-                <button onClick={() => navigate(`/toy/edit/${toy._id}`)}>Edit</button>
+                <button className="pill-btn edit-btn" onClick={() => navigate(`/toy/edit/${toy._id}`)}>Edit</button>
                 <ToyPreview toy={toy} />
             </article>
         ))}
