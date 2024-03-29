@@ -1,0 +1,18 @@
+@media (width <= 800px) {
+
+    .home-main .home-img{
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .home-main .home-img h3 {
+        max-width: 90%;
+    }
+
+    .home-main .home-img img {
+        width: 90%;
+    }
+}
+

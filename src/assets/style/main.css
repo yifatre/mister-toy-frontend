@@ -5,6 +5,7 @@
 @import url(basics/helpers.css);
 @import url(basics/layout.css);
 
+@import url(pages/home-page.css);
 @import url(pages/toy-index.css);
 
 @import url(cmps/app-header.css);

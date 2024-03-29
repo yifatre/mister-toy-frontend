@@ -1,0 +1,49 @@
+.home-main{
+    gap: 1.5rem;
+}
+
+.home-main .home-img {
+    justify-content: space-between;
+    width: 100%;
+    /* height: 6rem; */
+    padding: 1rem 0 0 1rem;
+    background: linear-gradient(138deg, #f4b634cc 0%, #f6d043cc 17%, #ebc643cc 87%, #f4b634cc 100%);
+    border-radius: 15px;
+    align-items: start;
+}
+
+.home-main .home-img h3 {
+    font-size: 1.55rem;
+    line-height: 1.5;
+    letter-spacing: 0.4px;
+    max-width: 10em;
+}
+
+.home-main .home-img img {
+    width: 70%;
+}
+
+
+
+
+
+.home-main ul {
+    gap: 1rem;
+    justify-content: center;
+}
+
+.home-main ul li {
+    flex-grow: 1;
+}
+
+
+.home-main ul li a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.home-main ul img {
+    width: 4rem;
+}
