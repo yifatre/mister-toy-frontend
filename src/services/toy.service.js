@@ -11,7 +11,8 @@ export const toyService = {
     save,
     getEmptyToy,
     getDefaultFilter,
-    getLabels
+    getLabels,
+    getFilterFromParams
 }
 
 function query(filterBy = {}) {
@@ -81,6 +82,15 @@ function getDefaultFilter() {
         txt: '',
         inStock: undefined,
         labels: []
+    }
+}
+
+function getFilterFromParams(searchParams = {}) {
+    const defaultFilter = getDefaultFilter()
+    return {
+        txt: searchParams.get('txt') || defaultFilter.txt,
+        inStock: searchParams.get('inStock') || defaultFilter.inStock,
+        labels: searchParams.getAll('labels') || defaultFilter.labels
     }
 }
 

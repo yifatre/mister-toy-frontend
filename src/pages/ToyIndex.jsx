@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux"
-import { ToyList } from "../cmps/ToyList"
 import { useEffect } from "react"
-import { loadToys, removeToy, setFilterBy } from "../store/actions/toy.actions"
+import { ToyList } from "../cmps/ToyList"
+import { loadToys, removeToy } from "../store/actions/toy.actions"
 import { useNavigate, Link } from "react-router-dom"
 import { ToyFilter } from "../cmps/ToyFilter"
+
 
 export function ToyIndex() {
     const navigate = useNavigate()
@@ -21,14 +22,9 @@ export function ToyIndex() {
             .catch(err => console.log('err', err))
     }
 
-    function onSetFilter(filterBy) {
-        setFilterBy(filterBy)
-    }
-
-
     if (!toys) return <div>loading</div>
-    return <section>
-        <ToyFilter onSetFilter={onSetFilter} filterBy={filterBy} />
+    return <section className="toy-index grid">
+        <ToyFilter />
         <Link to="/toy/edit"><button>Add toy</button></Link>
         <ToyList toys={toys} onRemoveToy={onRemoveToy} />
     </section>

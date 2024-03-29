@@ -39,5 +39,6 @@ export function saveToy(toy) {
 }
 
 export function setFilterBy(filterBy) {
+    // console.log('filterBy form actions', filterBy)
     store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
