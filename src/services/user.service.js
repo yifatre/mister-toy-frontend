@@ -1,4 +1,5 @@
 import { storageService } from './async-storage.service.js'
+import { httpService } from './http.service.js'
 
 const STORAGE_KEY = 'userDB'
 const STORAGE_KEY_LOGGEDIN = 'loggedinUser'
@@ -15,28 +16,42 @@ export const userService = {
 }
 
 function getById(userId) {
-    return storageService.get(STORAGE_KEY, userId)
+    return httpService.get(STORAGE_KEY, userId)
 }
 
-function login({ username, password }) {
-    return storageService.query(STORAGE_KEY)
-        .then(users => {
-            const user = users.find(user => user.username === username)
-            // if (user && user.password !== password) return _setLoggedinUser(user)
-            if (user) return _setLoggedinUser(user)
-            else return Promise.reject('Invalid login')
-        })
+async function login({ username, password }) {
+    try {
+        const user = await httpService.post('auth/login', { username, password })
+        if (user) return _setLoggedinUser(user)
+        else throw new Error('Invalid login details')
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
+    }
 }
 
-function signUp({ username, password, fullName }) {
-    const user = { username, password, fullName }
-    return storageService.post(STORAGE_KEY, user)
-        .then(_setLoggedinUser)
+async function signUp({ username, password, fullName }) {
+    try {
+        const loggedinUser = await httpService.post('auth/login', { username, password, fullName })
+        return _setLoggedinUser(loggedinUser)
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
+    }
 }
 
-function logout() {
-    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
-    return Promise.resolve()
+async function logout() {
+    try {
+        const msg = await httpService.post('auth/logout')
+        sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
+        return Promise.resolve()
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
+    }
 }
 
 function getLoggedinUser() {
