@@ -12,10 +12,14 @@ export function ToyEdit() {
         if (toyId) loadToy()
     }, [])
 
-    function loadToy() {
-        toyService.getById(toyId)
-            .then(toy => setToy(toy))
-            .catch(err => console.log('err', err))
+    async function loadToy() {
+        try {
+            setToy(await toyService.getById(toyId))
+        }
+        catch (err) {
+            console.log('err', err)
+            throw new Error('Cannot load toy')
+        }
     }
 
     function handleChange({ target }) {
@@ -24,11 +28,16 @@ export function ToyEdit() {
         setToy(prevToy => ({ ...prevToy, [field]: value }))
     }
 
-    function onSaveToy(ev) {
+    async function onSaveToy(ev) {
         ev.preventDefault()
-        saveToy(toy)
-            .then(navigate('/toy'))
-            .catch(err => console.log('err', err))
+        try {
+            await saveToy(toy)
+            navigate('/toy')
+        }
+        catch (err) {
+            console.log('err', err)
+            throw new Error('Cannot save toy')
+        }
     }
 
     if (!toy) return <div>loading...</div>

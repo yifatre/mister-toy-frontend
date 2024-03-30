@@ -15,11 +15,18 @@ export const toyService = {
     getFilterFromParams
 }
 
-function query(filterBy = {}) {
+async function query(filterBy = {}) {
     // console.log('query filterBy', filterBy)
 
     //* Server
-    return httpService.get('toy', { params: { filterBy } })
+    try {
+        const toys = await httpService.get('toy', { params: { filterBy } })
+        return toys
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
+    }
 
     //*LOCAL STORAGE
     // return storageService.query(STORAGE_KEY)
@@ -40,27 +47,40 @@ function getLabels() {
     return [...labels]
 }
 
-function getById(toyId) {
-
-    return httpService.get(`toy/${toyId}`)
-
+async function getById(toyId) {
+    try {
+        return await httpService.get(`toy/${toyId}`)
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
+    }
     // return storageService.get(STORAGE_KEY, toyId)
 }
 
-function remove(toyId) {
-
-    return httpService.delete(`toy/${toyId}`)
-
+async function remove(toyId) {
+    try {
+        return await httpService.delete(`toy/${toyId}`)
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
+    }
 
     // return storageService.remove(STORAGE_KEY, toyId)
 }
 
-function save(toy) {
-
-    if (toy._id) {
-        return httpService.put(`toy/${toy._id}`, toy)
-    } else {
-        return httpService.post('toy', toy)
+async function save(toy) {
+    try {
+        if (toy._id) {
+            return await httpService.put(`toy/${toy._id}`, toy)
+        } else {
+            return await httpService.post('toy', toy)
+        }
+    }
+    catch (err) {
+        console.log('err', err)
+        throw new Error('Something went wrong, try again later')
     }
 
     // if (toy._id) return storageService.put(STORAGE_KEY, toy)
@@ -139,6 +159,6 @@ function getFilterFromParams(searchParams = {}) {
 
 
 
-function getRandomDate(start, end) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).valueOf()
-}
+// function getRandomDate(start, end) {
+//     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).valueOf()
+// }

@@ -9,16 +9,14 @@ export function AppHeader() {
     const user = useSelector(storeState => storeState.userModule.loggedInUser)
 
 
-    function onLogout() {
+    async function onLogout() {
         try {
-            logout()
-
+            await logout()
         }
         catch {
             console.log('err', err)
         }
     }
-
 
     return <header className="app-header">
         <div className='flex'>

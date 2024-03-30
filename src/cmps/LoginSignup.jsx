@@ -9,29 +9,27 @@ export function LoginSignUp() {
 
     function onLogin(ev) {
         ev.preventDefault()
-        ev.preventDefault()
         isSignUp ? _signUp(credentials) : _login(credentials)
     }
 
-    function _login(credentials) {
-        console.log('credentials', credentials)
-        login(credentials)
-            .then(() => {
-                console.log('Logged in successfully')
-            })
-            .catch(err => {
-                console.log('Oops try again')
-            })
+    async function _login(credentials) {
+        try {
+            await login(credentials)
+            console.log('Logged in successfully')
+        }
+        catch (err) {
+            console.log('Oops try again', err)
+        }
     }
 
-    function _signUp(credentials) {
-        signUp(credentials)
-            .then(() => {
-                console.log('Signed up successfully')
-            })
-            .catch(err => {
-                console.log('Oops try again')
-            })
+    async function _signUp(credentials) {
+        try{
+            await signUp(credentials)
+            console.log('Signed up successfully')
+        }
+        catch (err) {
+            console.log('Oops try again', err)
+        }
     }
 
     function handleChange({ target }) {
