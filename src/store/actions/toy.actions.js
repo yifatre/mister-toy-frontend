@@ -3,6 +3,8 @@ import { ADD_TOY, REMOVE_TOY, SET_FILTER_BY, SET_TOYS, UPDATE_TOY } from "../red
 import { store } from "../store.js"
 
 export async function loadToys(filterBy) {
+    console.log('filterBy', filterBy)
+    
     try {
         const toys = await toyService.query(filterBy)
         store.dispatch({ type: SET_TOYS, toys })

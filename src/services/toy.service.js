@@ -20,7 +20,7 @@ async function query(filterBy = {}) {
 
     //* Server
     try {
-        const toys = await httpService.get('toy', { params: { filterBy } })
+        const toys = await httpService.get('toy', filterBy )
         return toys
     }
     catch (err) {
