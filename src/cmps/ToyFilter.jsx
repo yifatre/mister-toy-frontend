@@ -65,7 +65,7 @@ export function ToyFilter() {
             Categories:
             {toyService.getLabels().map(label => {
                 return <div key={label + 'input'}>
-                    <input type="checkbox" name="labels" id={label} value={label.toLowerCase()} onChange={handleChange} checked={filterByToEdit.labels.includes(label.toLowerCase())} />
+                    <input type="checkbox" name="labels" id={label} value={label} onChange={handleChange} checked={filterByToEdit.labels.includes(label)} />
                     <label htmlFor={label}>{label}</label>
                 </div>
             })}

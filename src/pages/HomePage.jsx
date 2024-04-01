@@ -16,11 +16,11 @@ export function HomePage() {
             <img src={toysImg} alt="" />
         </section>
         <ul className="clean-list flex">
-            <li><Link to="/toy?labels=doll"><img src={doll} alt="" /><span>Dolls</span></Link></li>
-            <li><Link to="/toy?labels=art"><img src={art} alt="" /><span>Art</span></Link></li>
-            <li><Link to="/toy?labels=on+wheels"><img src={car} alt="" /><span>On Wheels</span></Link></li>
-            <li><Link to="/toy?labels=outdoor"><img src={outdoors} alt="" /><span>Outdoor</span></Link></li>
-            <li><Link to="/toy?labels=puzzle"><img src={puzzle} alt="" /><span>Puzzles</span></Link></li>
+            <li><Link to="/toy?labels=Doll"><img src={doll} alt="" /><span>Dolls</span></Link></li>
+            <li><Link to="/toy?labels=Art"><img src={art} alt="" /><span>Art</span></Link></li>
+            <li><Link to="/toy?labels=On+wheels"><img src={car} alt="" /><span>On Wheels</span></Link></li>
+            <li><Link to="/toy?labels=Outdoor"><img src={outdoors} alt="" /><span>Outdoor</span></Link></li>
+            <li><Link to="/toy?labels=Puzzle"><img src={puzzle} alt="" /><span>Puzzles</span></Link></li>
         </ul>
     </section>
 }
